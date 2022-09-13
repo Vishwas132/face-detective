@@ -1,0 +1,11 @@
+.signout-container {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.signout-button {
+  height: 2.5rem;
+  width: 5rem;
+  margin: 1rem;
+}

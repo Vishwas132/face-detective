@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { Component } from "react";
-import Navigation from "./components/Navigation/Navigation";
+import Navigation from "./components/SignOut/SignOut";
 import Logo from "./components/Logo/Logo";
 import ImageLink from "./components/ImageLink/ImageLink";
 import FaceDetect from "./components/FaceDetect/FaceDetect";
