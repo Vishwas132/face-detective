@@ -19,12 +19,10 @@ class App extends Component {
   }
 
   displayFaceBox = (boxes) => {
-    console.log(boxes);
     this.setState({ boxes: boxes });
   };
 
   calculateFaceLocation = (result) => {
-    console.log(result);
     const clarifaiFaces = result.outputs[0].data.regions.map(
       (region) => region.region_info.bounding_box
     );

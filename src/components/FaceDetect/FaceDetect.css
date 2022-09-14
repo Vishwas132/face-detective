@@ -1,0 +1,31 @@
+.full-width-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.image-container {
+  width: 24rem;
+  position: absolute;
+}
+
+@media screen and (min-width: 600px) {
+  .image-container {
+    width: 45rem;
+  }
+}
+
+#input-image {
+  width: 100%;
+}
+
+.face-bounding-box {
+  position: absolute;
+  box-shadow: 0 0 0 3px #149df2 inset;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  cursor: pointer;
+}
