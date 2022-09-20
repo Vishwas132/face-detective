@@ -15,8 +15,19 @@ class App extends Component {
       imageUrl: "",
       boxes: [],
       route: "signin",
+      user: {
+        id: "",
+        name: "",
+        email: "",
+        usageCounter: 0,
+        joined: "",
+      },
     };
   }
+
+  updateUser = (userState) => {
+    this.setState({ user: userState });
+  };
 
   displayFaceBox = (boxes) => {
     this.setState({ boxes: boxes });
@@ -104,14 +115,17 @@ class App extends Component {
       return (
         <div>
           <Logo />
-          <SignIn onRouteChange={this.onRouteChange} />
+          <SignIn onRouteChange={this.onRouteChange} updateUser={this.updateUser} />
         </div>
       );
     } else if (route === "register") {
       return (
         <div>
           <Logo />
-          <Register onRouteChange={this.onRouteChange} />
+          <Register
+            onRouteChange={this.onRouteChange}
+            updateUser={this.updateUser}
+          />
         </div>
       );
     } else if (route === "home") {
