@@ -25,6 +25,11 @@ class App extends Component {
     };
   }
 
+  resetHomePage = () => {
+    this.setState({ boxes: [] });
+    this.setState({ imageUrl: "" });
+  };
+
   updateUser = (userState) => {
     this.setState({ user: userState });
   };
@@ -133,7 +138,10 @@ class App extends Component {
         <div className="center">
           <div className="home-navigation">
             <Logo />
-            <Navigation onRouteChange={this.onRouteChange} />
+            <Navigation
+              onRouteChange={this.onRouteChange}
+              resetHomePage={this.resetHomePage}
+            />
           </div>
           <ImageLink
             onInputChange={this.onInputChange}
