@@ -38,6 +38,22 @@ class App extends Component {
     this.setState({ boxes: boxes });
   };
 
+  incrementCounter = () => {
+    this.setState(
+      Object.assign(this.state.user, {
+        usageCounter: Number(this.state.user.usageCounter) + 1,
+      })
+    );
+    fetch("http://localhost:3001/detect", {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ id: this.state.user.id }),
+    })
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
   calculateFaceLocation = (result) => {
     const clarifaiFaces = result.outputs[0].data.regions.map(
       (region) => region.region_info.bounding_box
@@ -97,7 +113,14 @@ class App extends Component {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => this.calculateFaceLocation(result))
+      .then((result) => {
+        if (result.outputs[0].data.regions) {
+          this.incrementCounter();
+          this.calculateFaceLocation(result);
+        } else {
+          console.error(result.outputs[0].data.regions);
+        }
+      })
       .catch((error) => console.log("error", error));
   };
 
@@ -115,7 +138,7 @@ class App extends Component {
   };
 
   render() {
-    let { imageUrl, boxes, route } = this.state;
+    let { imageUrl, boxes, route, user } = this.state;
     if (route === "signin") {
       return (
         <div>
@@ -143,6 +166,9 @@ class App extends Component {
               resetHomePage={this.resetHomePage}
             />
           </div>
+          <h2>
+            Hi {user.name}! You have used the service {user.usageCounter} times
+          </h2>
           <ImageLink
             onInputChange={this.onInputChange}
             onButtonSubmit={this.onButtonSubmit}
