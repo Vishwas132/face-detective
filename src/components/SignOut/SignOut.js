@@ -1,14 +1,14 @@
 import React from "react";
 import "./SignOut.css";
 
-const Navigation = ({ onRouteChange, resetHomePage }) => {
+const Navigation = ({ changeRoute, resetHomePage }) => {
   return (
     <nav className="signout-container">
       <button
         className="button signout-button"
         onClick={() => {
           resetHomePage();
-          onRouteChange("signin");
+          changeRoute("signin");
         }}
       >
         Sign Out

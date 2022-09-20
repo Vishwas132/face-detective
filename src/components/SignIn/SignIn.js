@@ -28,7 +28,7 @@ class SignIn extends React.Component {
       .then((result) => {
         if (result.id) {
           this.props.updateUser(result);
-          this.props.onRouteChange("home");
+          this.props.changeRoute("home");
         }
       })
       .catch((error) => console.log("error", error));
@@ -66,7 +66,7 @@ class SignIn extends React.Component {
             className="button button-size input-margin"
             type="button"
             id="register"
-            onClick={() => this.props.onRouteChange("register")}
+            onClick={() => this.props.changeRoute("register")}
           >
             Register
           </button>

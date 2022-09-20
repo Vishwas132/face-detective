@@ -124,16 +124,16 @@ class App extends Component {
       .catch((error) => console.log("error", error));
   };
 
-  onInputChange = (event) => {
+  changeInputState = (event) => {
     this.setState({ input: event.target.value });
   };
 
-  onButtonSubmit = () => {
+  detectFaces = () => {
     this.setState({ imageUrl: this.state.input });
     this.fetchData();
   };
 
-  onRouteChange = (page) => {
+  changeRoute = (page) => {
     this.setState({ route: page });
   };
 
@@ -143,7 +143,7 @@ class App extends Component {
       return (
         <div>
           <Logo />
-          <SignIn onRouteChange={this.onRouteChange} updateUser={this.updateUser} />
+          <SignIn changeRoute={this.changeRoute} updateUser={this.updateUser} />
         </div>
       );
     } else if (route === "register") {
@@ -151,7 +151,7 @@ class App extends Component {
         <div>
           <Logo />
           <Register
-            onRouteChange={this.onRouteChange}
+            changeRoute={this.changeRoute}
             updateUser={this.updateUser}
           />
         </div>
@@ -162,7 +162,7 @@ class App extends Component {
           <div className="home-navigation">
             <Logo />
             <Navigation
-              onRouteChange={this.onRouteChange}
+              changeRoute={this.changeRoute}
               resetHomePage={this.resetHomePage}
             />
           </div>
@@ -170,8 +170,8 @@ class App extends Component {
             Hi {user.name}! You have used the service {user.usageCounter} times
           </h2>
           <ImageLink
-            onInputChange={this.onInputChange}
-            onButtonSubmit={this.onButtonSubmit}
+            changeInputState={this.changeInputState}
+            detectFaces={this.detectFaces}
           />
           <FaceDetect imageUrl={imageUrl} boxes={boxes} />
         </div>

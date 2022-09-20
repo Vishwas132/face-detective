@@ -1,7 +1,7 @@
 import React from "react";
 import "./ImageLink.css";
 
-const ImageLink = ({ onInputChange, onButtonSubmit }) => {
+const ImageLink = ({ changeInputState, detectFaces }) => {
   return (
     <div className="card-wrapper">
       <div className="card">
@@ -11,10 +11,10 @@ const ImageLink = ({ onInputChange, onButtonSubmit }) => {
             type="url"
             name="url"
             placeholder="Enter url of image"
-            onChange={onInputChange}
+            onChange={changeInputState}
           />
 
-          <button className="button" type="submit" onClick={onButtonSubmit}>
+          <button className="button" type="click" onClick={detectFaces}>
             Find faces
           </button>
         </div>

@@ -32,7 +32,7 @@ class Register extends React.Component {
       .then((result) => {
         if (result.id) {
           this.props.updateUser(result);
-          this.props.onRouteChange("home");
+          this.props.changeRoute("home");
         }
       })
       .catch((error) => console.log("error", error));
@@ -78,7 +78,7 @@ class Register extends React.Component {
             className="button button-size input-margin"
             type="button"
             id="sign-in"
-            onClick={() => this.props.onRouteChange("signin")}
+            onClick={() => this.props.changeRoute("signin")}
           >
             Sign-in
           </button>
