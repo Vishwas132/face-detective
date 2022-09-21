@@ -1,13 +1,14 @@
 import React from "react";
 import "./Navigation.css";
 
-const Navigation = ({ changeRoute, resetHomePage }) => {
+const Navigation = ({ changeRoute, resetHomePage, deleteUser }) => {
   return (
     <nav className="signout-container">
       <button
         className="button signout-button"
         onClick={() => {
           resetHomePage();
+          deleteUser();
           changeRoute("signin");
         }}
       >
