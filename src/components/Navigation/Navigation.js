@@ -1,5 +1,5 @@
 import React from "react";
-import "./SignOut.css";
+import "./Navigation.css";
 
 const Navigation = ({ changeRoute, resetHomePage }) => {
   return (
