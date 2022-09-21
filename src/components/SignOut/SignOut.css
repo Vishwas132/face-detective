@@ -6,6 +6,7 @@
 
 .signout-button {
   height: 2.5rem;
-  width: 5rem;
+  width: fit-content;
+  padding: 0 1rem;
   margin: 1rem;
 }

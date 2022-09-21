@@ -25,6 +25,17 @@ class App extends Component {
     };
   }
 
+  deleteUser = () => {
+    fetch("http://localhost:3001/delete", {
+      method: "DELETE",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({ id: this.state.user.id }),
+    })
+      .then((response) => response.json())
+      .then((result) => console.log(result))
+      .catch((error) => console.log("error", error));
+  };
+
   resetHomePage = () => {
     this.setState({ boxes: [] });
     this.setState({ imageUrl: "" });
@@ -164,6 +175,7 @@ class App extends Component {
             <Navigation
               changeRoute={this.changeRoute}
               resetHomePage={this.resetHomePage}
+              deleteUser={this.deleteUser}
             />
           </div>
           <h2>

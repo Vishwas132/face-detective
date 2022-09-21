@@ -11,6 +11,15 @@ const Navigation = ({ changeRoute, resetHomePage }) => {
           changeRoute("signin");
         }}
       >
+        Delete account
+      </button>
+      <button
+        className="button signout-button"
+        onClick={() => {
+          resetHomePage();
+          changeRoute("signin");
+        }}
+      >
         Sign Out
       </button>
     </nav>
