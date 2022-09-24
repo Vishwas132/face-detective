@@ -11,9 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      input: "",
       imageUrl: "",
-      boxes: [],
+      faceBoxes: [],
       route: "signin",
       user: {
         name: "",
@@ -36,7 +35,7 @@ class App extends Component {
   };
 
   resetHomePage = () => {
-    this.setState({ boxes: [] });
+    this.setState({ faceBoxes: [] });
     this.setState({ imageUrl: "" });
   };
 
@@ -75,7 +74,7 @@ class App extends Component {
     const image = document.querySelector("#input-image");
     const width = Number(image.width);
     const height = Number(image.height);
-    const boxes = clarifaiFaces.map((clarifaiFace) => {
+    const faceBoxes = clarifaiFaces.map((clarifaiFace) => {
       return {
         leftCol: clarifaiFace.left_col * width,
         topRow: clarifaiFace.top_row * height,
@@ -83,7 +82,7 @@ class App extends Component {
         bottomRow: height - clarifaiFace.bottom_row * height,
       };
     });
-    this.setState({ boxes: boxes });
+    this.setState({ faceBoxes: faceBoxes });
   };
 
   fetchData = () => {
@@ -92,7 +91,7 @@ class App extends Component {
     const APP_ID = "bff0a5af8ec9411d8ef77bd3f7ba363f";
     const MODEL_ID = "face-detection";
     const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
-    const IMAGE_URL = this.state.input;
+    const IMAGE_URL = this.state.imageUrl;
 
     const raw = JSON.stringify({
       user_app_id: {
@@ -139,11 +138,10 @@ class App extends Component {
   };
 
   changeInputState = (event) => {
-    this.setState({ input: event.target.value });
+    this.setState({ imageUrl: event.target.value });
   };
 
   detectFaces = () => {
-    this.setState({ imageUrl: this.state.input });
     this.fetchData();
   };
 
@@ -152,7 +150,7 @@ class App extends Component {
   };
 
   render() {
-    let { imageUrl, boxes, route, user } = this.state;
+    let { imageUrl, faceBoxes, route, user } = this.state;
     if (route === "signin") {
       return (
         <div>
@@ -188,7 +186,7 @@ class App extends Component {
             changeInputState={this.changeInputState}
             detectFaces={this.detectFaces}
           />
-          <FaceDetect imageUrl={imageUrl} boxes={boxes} />
+          <FaceDetect imageUrl={imageUrl} faceBoxes={faceBoxes} />
         </div>
       );
     }

@@ -1,12 +1,12 @@
 import React from "react";
 import "./FaceDetect.css";
 
-const FaceDetect = ({ imageUrl, boxes }) => {
+const FaceDetect = ({ imageUrl, faceBoxes }) => {
   return (
     <div className="full-width-container">
       <div className="image-container">
         <img id="input-image" src={imageUrl} alt="" />
-        {boxes.map((box, index) => {
+        {faceBoxes.map((box, index) => {
           return (
             <div
               className="face-bounding-box"
