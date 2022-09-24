@@ -19,7 +19,7 @@ class App extends Component {
         id: "",
         name: "",
         email: "",
-        usageCounter: 0,
+        usageCount: 0,
         joined: "",
       },
     };
@@ -42,26 +42,31 @@ class App extends Component {
   };
 
   updateUser = (userState) => {
-    this.setState({ user: userState });
-  };
-
-  displayFaceBox = (boxes) => {
-    this.setState({ boxes: boxes });
+    this.setState({
+      user: {
+        id: userState.id,
+        name: userState.name,
+        email: userState.email,
+        usageCount: userState.usage_count,
+        joined: userState.joined,
+      },
+    });
   };
 
   incrementCounter = () => {
-    this.setState(
-      Object.assign(this.state.user, {
-        usageCounter: Number(this.state.user.usageCounter) + 1,
-      })
-    );
     fetch("http://localhost:3001/detect", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({ id: this.state.user.id }),
     })
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((usage_count) => {
+        this.setState(
+          Object.assign(this.state.user, {
+            usageCount: usage_count,
+          })
+        );
+      })
       .catch((error) => console.log("error", error));
   };
 
@@ -80,7 +85,7 @@ class App extends Component {
         bottomRow: height - clarifaiFace.bottom_row * height,
       };
     });
-    this.displayFaceBox(boxes);
+    this.setState({ boxes: boxes });
   };
 
   fetchData = () => {
@@ -179,7 +184,7 @@ class App extends Component {
             />
           </div>
           <h2>
-            Hi {user.name}! You have used the service {user.usageCounter} times
+            Hi {user.name}! You have used the service {user.usageCount} times
           </h2>
           <ImageLink
             changeInputState={this.changeInputState}
