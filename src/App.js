@@ -16,7 +16,6 @@ class App extends Component {
       boxes: [],
       route: "signin",
       user: {
-        id: "",
         name: "",
         email: "",
         usageCount: 0,
@@ -29,7 +28,7 @@ class App extends Component {
     fetch("http://localhost:3001/delete", {
       method: "DELETE",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ id: this.state.user.id }),
+      body: JSON.stringify({ email: this.state.user.email }),
     })
       .then((response) => response.json())
       .then((result) => console.log(result))
@@ -44,7 +43,6 @@ class App extends Component {
   updateUser = (userState) => {
     this.setState({
       user: {
-        id: userState.id,
         name: userState.name,
         email: userState.email,
         usageCount: userState.usage_count,
@@ -57,7 +55,7 @@ class App extends Component {
     fetch("http://localhost:3001/detect", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ id: this.state.user.id }),
+      body: JSON.stringify({ email: this.state.user.email }),
     })
       .then((response) => response.json())
       .then((usage_count) => {
