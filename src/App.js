@@ -50,25 +50,16 @@ class App extends Component {
     });
   };
 
-  incrementCounter = () => {
-    fetch("http://localhost:3001/detect", {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
-      body: JSON.stringify({ email: this.state.user.email }),
-    })
-      .then((response) => response.json())
-      .then((usage_count) => {
-        this.setState(
-          Object.assign(this.state.user, {
-            usageCount: usage_count,
-          })
-        );
-      })
-      .catch((error) => console.log("error", error));
+  changeRoute = (page) => {
+    this.setState({ route: page });
   };
 
-  calculateFaceLocation = (result) => {
-    const clarifaiFaces = result.outputs[0].data.regions.map(
+  changeInputState = (event) => {
+    this.setState({ imageUrl: event.target.value });
+  };
+
+  calculateFaceLocation = (apiResult) => {
+    const clarifaiFaces = apiResult.map(
       (region) => region.region_info.bounding_box
     );
     const image = document.querySelector("#input-image");
@@ -85,68 +76,25 @@ class App extends Component {
     this.setState({ faceBoxes: faceBoxes });
   };
 
-  fetchData = () => {
-    const USER_ID = "vishwas_123";
-    const PAT = "66090fdf83e14d509c71fe13b037d26a";
-    const APP_ID = "bff0a5af8ec9411d8ef77bd3f7ba363f";
-    const MODEL_ID = "face-detection";
-    const MODEL_VERSION_ID = "6dc7e46bc9124c5c8824be4822abe105";
-    const IMAGE_URL = this.state.imageUrl;
-
-    const raw = JSON.stringify({
-      user_app_id: {
-        user_id: USER_ID,
-        app_id: APP_ID,
-      },
-      inputs: [
-        {
-          data: {
-            image: {
-              url: IMAGE_URL,
-            },
-          },
-        },
-      ],
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        Authorization: "Key " + PAT,
-      },
-      body: raw,
-    };
-    fetch(
-      "https://api.clarifai.com/v2/models/" +
-        MODEL_ID +
-        "/versions/" +
-        MODEL_VERSION_ID +
-        "/outputs",
-      requestOptions
-    )
+  detectFaces = () => {
+    fetch("http://localhost:3001/detect", {
+      method: "PUT",
+      headers: { "Content-type": "application/json" },
+      body: JSON.stringify({
+        email: this.state.user.email,
+        imageUrl: this.state.imageUrl,
+      }),
+    })
       .then((response) => response.json())
-      .then((result) => {
-        if (result.outputs[0].data.regions) {
-          this.incrementCounter();
-          this.calculateFaceLocation(result);
-        } else {
-          console.error(result.outputs[0].data.regions);
-        }
+      .then(({ usage_count, apiResult }) => {
+        this.calculateFaceLocation(apiResult);
+        this.setState(
+          Object.assign(this.state.user, {
+            usageCount: usage_count,
+          })
+        );
       })
       .catch((error) => console.log("error", error));
-  };
-
-  changeInputState = (event) => {
-    this.setState({ imageUrl: event.target.value });
-  };
-
-  detectFaces = () => {
-    this.fetchData();
-  };
-
-  changeRoute = (page) => {
-    this.setState({ route: page });
   };
 
   render() {
