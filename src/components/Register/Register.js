@@ -23,7 +23,7 @@ class Register extends React.Component {
   };
 
   registerUser = (event) => {
-    fetch("https://protected-crag-39335.herokuapp.com/register", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state),

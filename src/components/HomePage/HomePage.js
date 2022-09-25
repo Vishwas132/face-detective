@@ -41,7 +41,7 @@ class HomePage extends React.Component {
   };
 
   detectFaces = () => {
-    fetch("https://protected-crag-39335.herokuapp.com/detect", {
+    fetch(`${process.env.REACT_APP_BASE_URL}/detect`, {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({
@@ -51,10 +51,14 @@ class HomePage extends React.Component {
     })
       .then((response) => response.json())
       .then(({ usage_count, apiResult }) => {
-        this.calculateFaceLocation(apiResult);
-        this.props.incrementCount(usage_count);
+        if (usage_count && apiResult) {
+          this.calculateFaceLocation(apiResult);
+          this.props.incrementCount(usage_count);
+        } else {
+          throw Error("API result undefined");
+        }
       })
-      .catch((error) => console.log("error", error));
+      .catch((error) => console.log(error));
   };
 
   render() {
