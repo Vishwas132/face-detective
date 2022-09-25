@@ -19,7 +19,7 @@ class SignIn extends React.Component {
   };
 
   signinUser = (event) => {
-    fetch("http://localhost:3001/signin", {
+    fetch("https://protected-crag-39335.herokuapp.com/signin", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(this.state),

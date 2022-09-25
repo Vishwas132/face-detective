@@ -41,7 +41,7 @@ class HomePage extends React.Component {
   };
 
   detectFaces = () => {
-    fetch("http://localhost:3001/detect", {
+    fetch("https://protected-crag-39335.herokuapp.com/detect", {
       method: "PUT",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify({

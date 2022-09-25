@@ -2,7 +2,7 @@ import React from "react";
 import "./Navigation.css";
 
 const deleteUser = (email) => {
-  fetch("http://localhost:3001/delete", {
+  fetch("https://protected-crag-39335.herokuapp.com/delete", {
     method: "DELETE",
     headers: { "Content-type": "application/json" },
     body: JSON.stringify({ email: email }),
