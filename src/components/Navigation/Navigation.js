@@ -1,14 +1,25 @@
 import React from "react";
 import "./Navigation.css";
 
-const Navigation = ({ changeRoute, resetHomePage, deleteUser }) => {
+const deleteUser = (email) => {
+  fetch("http://localhost:3001/delete", {
+    method: "DELETE",
+    headers: { "Content-type": "application/json" },
+    body: JSON.stringify({ email: email }),
+  })
+    .then((response) => response.json())
+    .then((result) => console.log(result))
+    .catch((error) => console.log("error", error));
+};
+
+const Navigation = ({ changeRoute, resetHomePage, email }) => {
   return (
     <nav className="signout-container">
       <button
         className="button signout-button"
         onClick={() => {
           resetHomePage();
-          deleteUser();
+          deleteUser(email);
           changeRoute("signin");
         }}
       >
